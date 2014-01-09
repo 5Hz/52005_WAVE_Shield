@@ -1,0 +1,22 @@
+#if ARDUINO >= 100
+#include "Arduino.h"
+#else
+#include "WProgram.h"
+#endif
+#include <avr/io.h>
+#include <avr/interrupt.h>
+#include <util/delay.h>
+#include <avr/pgmspace.h>
+#include "util.h"
+
+void ROM_putstring(const char *str, uint8_t nl) {
+    uint8_t i;
+    
+    for (i=0; pgm_read_byte(&str[i]); i++) {
+      Serial.print(pgm_read_byte(&str[i]));
+  }
+  if (nl) {
+    Serial.print('\n'); Serial.print('\r');
+  }
+}
+
